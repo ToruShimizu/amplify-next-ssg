@@ -1,7 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/foo/:id", "destination": "/foo/[id].html" },
-    { "source": "/foo/:id/bar", "destination": "/foo/[id]/bar/index.html" },
-    { "source": "/foo/:id/bar/:slug", "destination": "/foo/[id]/bar/[slug].html" }
-  ]
-}
