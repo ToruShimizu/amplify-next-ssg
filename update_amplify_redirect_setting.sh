@@ -13,6 +13,8 @@ OUTPUT_FILE='redirections.json'
 # Trailing Slashの設定(Next.jsのデフォルトはfalse)
 TRAILING_SLASH=false
 
+AWSPATH=$(which aws)
+
 
 ##### 関数 #####
 
@@ -95,4 +97,4 @@ echo "]" >> $OUTPUT_FILE
 cat $OUTPUT_FILE
 
 ##### 書き出したリダイレクト設定を Amplify Hosting に反映する #####
-/usr/bin/aws amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
+"$$AWSPATH" amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
