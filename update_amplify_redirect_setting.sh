@@ -5,7 +5,7 @@
 # 拡張子
 EXTENSION='.tsx'
 # リダイレクト設定を行うルートディレクトリ
-ROOT_DIR='./pages'
+ROOT_DIR='./src/pages'
 # リダイレクト設定から除外するファイル
 EXCLUDED_FILES=("$ROOT_DIR/_app.tsx" "$ROOT_DIR/_document.tsx" "$ROOT_DIR/index.tsx")
 # 出力先のファイル名
