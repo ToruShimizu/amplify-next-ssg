@@ -5,15 +5,13 @@
 # 拡張子
 EXTENSION='.tsx'
 # リダイレクト設定を行うルートディレクトリ
-ROOT_DIR='./src/pages'
+ROOT_DIR='./pages'
 # リダイレクト設定から除外するファイル
 EXCLUDED_FILES=("$ROOT_DIR/_app.tsx" "$ROOT_DIR/_document.tsx" "$ROOT_DIR/index.tsx")
 # 出力先のファイル名
 OUTPUT_FILE='redirections.json'
 # Trailing Slashの設定(Next.jsのデフォルトはfalse)
 TRAILING_SLASH=false
-
-AWSPATH=$(which aws)
 
 
 ##### 関数 #####
@@ -97,4 +95,4 @@ echo "]" >> $OUTPUT_FILE
 cat $OUTPUT_FILE
 
 ##### 書き出したリダイレクト設定を Amplify Hosting に反映する #####
-"$$AWSPATH" amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
+/usr/local/bin/aws amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
