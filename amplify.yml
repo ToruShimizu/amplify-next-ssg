@@ -11,10 +11,11 @@ applications:
         postBuild:
           commands:
             - ./update_amplify_redirect_setting.sh
-      artifacts:
-        baseDirectory: out
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+    artifacts:
+      baseDirectory: out
+      files:
+        - '**/*'
+    cache:
+      paths:
+        - .next/cache/**/*
+        - node_modules/**/*
