@@ -8,9 +8,9 @@ applications:
         build:
           commands:
             - yarn run build
-        postBuild:
-          commands:
-            - ./update_amplify_redirect_setting.sh
+        # postBuild:
+        #   commands:
+        #     - ./update_amplify_redirect_setting.sh
       artifacts:
         baseDirectory: out
         files:
