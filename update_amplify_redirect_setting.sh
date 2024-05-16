@@ -95,6 +95,6 @@ echo "]" >> $OUTPUT_FILE
 cat $OUTPUT_FILE
 
 ##### 書き出したリダイレクト設定を Amplify Hosting に反映する #####
-which aws
+echo which aws
 
 /usr/local/bin/aws amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
