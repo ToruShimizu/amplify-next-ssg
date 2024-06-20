@@ -97,4 +97,12 @@ cat $OUTPUT_FILE
 ##### 書き出したリダイレクト設定を Amplify Hosting に反映する #####
 echo which aws
 
-/usr/local/bin/aws amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
+AWS_CLI_PATH=$(which aws)
+
+if [ -z "$AWS_CLI_PATH" ]; then
+  echo "AWS CLIが見つかりません。"
+  exit 1
+fi
+$AWS_CLI_PATH amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
+
+# /usr/local/bin/aws amplify update-app --app-id $AWS_APP_ID --custom-rules file://redirections.json
