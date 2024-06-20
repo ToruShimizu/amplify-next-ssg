@@ -9,6 +9,7 @@ applications:
             - unzip awscliv2.zip
             - ./aws/install -i ~/aws-cli -b ~/bin
             - export PATH=~/bin:$PATH
+            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - yarn install
         build:
           commands:
@@ -16,7 +17,6 @@ applications:
         postBuild:
           commands:
             - ./update_amplify_redirect_setting.sh
-            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
       artifacts:
         baseDirectory: out
         files:
