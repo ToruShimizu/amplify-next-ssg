@@ -9,7 +9,6 @@ applications:
             - unzip awscliv2.zip
             - ./aws/install -i ~/aws-cli -b ~/bin
             - export PATH=~/bin:$PATH
-            - echo "AWS_APP_ID: $AWS_APP_ID"
             - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - yarn install
         build:
