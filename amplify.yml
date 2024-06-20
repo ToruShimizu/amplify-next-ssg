@@ -4,24 +4,12 @@ applications:
       phases:
         preBuild:
           commands:
-            - echo "Installing AWS CLI..."
-            - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            - unzip awscliv2.zip
-            - ./aws/install -i ~/aws-cli -b ~/bin
-            - export PATH=~/bin:$PATH
-            - "echo 'AWS_APP_ID: $AWS_APP_ID'"
-            - aws amplify update-app --app-id $AWS_APP_ID --platform WEB
-            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - yarn install
         build:
           commands:
-            - aws amplify update-app --app-id $AWS_APP_ID --platform WEB
-            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - yarn run build
         postBuild:
           commands:
-            - aws amplify update-app --app-id $AWS_APP_ID --platform WEB
-            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - ./update_amplify_redirect_setting.sh
       artifacts:
         baseDirectory: out
