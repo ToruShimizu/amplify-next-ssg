@@ -14,6 +14,8 @@ applications:
             - yarn install
         build:
           commands:
+            - aws amplify update-app --app-id $AWS_APP_ID --platform WEB
+            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - yarn run build
         postBuild:
           commands:
