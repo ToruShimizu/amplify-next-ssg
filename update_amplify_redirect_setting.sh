@@ -75,7 +75,8 @@ do
 
   # source と targetの文字列を加工
   source=$(echo $page | sed -e "s/\\[/\</" -e "s/\\]/\>/") # []を<>に書き換える e.g. /posts/[id] → /posts/<id>
-  target=$page
+  target="$page/index.html"
+
 
   # リダイレクト設定の書き出し
   writeRedirectSettingBasedOnTrailingSlashParam $source $target 200
