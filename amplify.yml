@@ -19,6 +19,8 @@ applications:
             - yarn run build
         postBuild:
           commands:
+            - aws amplify update-app --app-id $AWS_APP_ID --platform WEB
+            - aws amplify update-branch --app-id $AWS_APP_ID --branch-name main --framework 'Next.js - SSG'
             - ./update_amplify_redirect_setting.sh
       artifacts:
         baseDirectory: out
