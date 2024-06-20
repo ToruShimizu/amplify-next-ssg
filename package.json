@@ -9,16 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "13.4.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.4.3"
+  },
+  "devDependencies": {
     "@aws-amplify/cli": "^12.12.2",
     "@types/node": "20.12.4",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",
     "eslint": "8.57.0",
-    "eslint-config-next": "13.4.7",
-    "next": "13.4.7",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.4.3"
+    "eslint-config-next": "13.4.7"
   },
   "volta": {
     "node": "18.17.1"
