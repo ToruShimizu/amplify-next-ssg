@@ -17,7 +17,7 @@ export default function FooDetail() {
       <main className={`${styles.main} ${inter.className}`}>
         Foo Detailページ
         <Link href="/foo">前のページへ</Link>
-        <Link href="/foo/bar/1">次のページへ</Link>
+        <Link href="/foo/1/bar/1">次のページへ</Link>
       </main>
     </>
   )
