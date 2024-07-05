@@ -1,4 +1,4 @@
-const { PHASE_DEVELOPMENT_SERVER } = require("next/constants");
+const { PHASE_DEVELOPMENT_SERVER,PHASE_EXPORT } = require("next/constants");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -7,7 +7,7 @@ const nextConfig = {
   output: 'export',
 }
 module.exports = (phase) => {
-  if (phase === PHASE_DEVELOPMENT_SERVER) {
+  if (phase === PHASE_EXPORT) {
     /** @type {import('next').NextConfig} */
     return {
       ...nextConfig,
