@@ -17,7 +17,7 @@ export default function Bar() {
       <main className={`${styles.main} ${inter.className}`}>
         Barページ
         <Link href="/foo/1">前のページへ</Link>
-        <Link href="/foo/bar/1/slug/1">次のページへ</Link>
+        <Link href="/foo/1/bar/1/slug/1">次のページへ</Link>
       </main>
     </>
   )

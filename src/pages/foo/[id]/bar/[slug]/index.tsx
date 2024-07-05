@@ -16,7 +16,7 @@ export default function BarSlug() {
       </Head>
       <main className={`${styles.main} ${inter.className}`}>
         Bar Slugページ
-        <Link href="/foo/bar/1">前のページへ</Link>
+        <Link href="/foo/1/bar/1">前のページへ</Link>
       </main>
     </>
   )

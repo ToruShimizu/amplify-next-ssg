@@ -16,7 +16,7 @@ module.exports = (phase) => {
           beforeFiles: [
             {
               source: "/foo/:id",
-              destination: "/foo/:id",
+              destination: "/foo/:id/index.html",
             },
           ],
         };
