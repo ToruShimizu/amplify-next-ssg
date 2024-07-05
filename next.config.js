@@ -1,4 +1,4 @@
-const { PHASE_DEVELOPMENT_SERVER,PHASE_EXPORT } = require("next/constants");
+const { PHASE_DEVELOPMENT_SERVER, PHASE_EXPORT} = require("next/constants");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,14 +12,12 @@ module.exports = (phase) => {
     return {
       ...nextConfig,
       async rewrites() {
-        return {
-          beforeFiles: [
+        return [
             {
               source: "/foo/:id",
-              destination: "/foo/:id/index.html",
+              destination: "",
             },
-          ],
-        };
+          ]
       },
     };
   }
