@@ -13,6 +13,8 @@ const Custom404: NextPage = () => {
  
   useEffect(() => {
     const pathNames = window.location.pathname.split('/')
+    console.log(pathNames);
+    
     // /post/[pid] を処理する場合
     if (pathNames[1] === 'foo') {
       Router.replace(window.location.pathname)
