@@ -1,0 +1,29 @@
+name: connect vpn
+on: workflow_dispatch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install OpenVPN
+        run: |
+          sudo apt update
+          sudo apt install -y openvpn openvpn-systemd-resolved
+
+      - name: Set up VPN config file
+        run: echo "${{ secrets.VPN_CONFIG }}" > client.ovpn
+
+      - name: Connect to VPN
+        uses: kota65535/github-openvpn-connect-action@v3
+        with:
+          config_file: client.ovpn
+
+      - name: Check VPN connection
+        run: |
+          echo "Checking VPN connection..."
+          ip a  # or you can use `ifconfig` if it's installed
+          ping -c 4 google.com  # This is to check if the connection is working by pinging an external server
