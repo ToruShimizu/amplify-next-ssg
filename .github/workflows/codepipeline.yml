@@ -24,6 +24,10 @@ jobs:
       - name: Verify AWS authe  ntication
         run: aws sts get-caller-identity
 
+      - name: Fetch current CodePipeline definition
+        run: |
+          aws codepipeline get-pipeline --name trigger-github-actions --query 'pipeline' > pipeline-definition.json
+
       - name: Modify CodePipeline Source Stage
         run: |
           echo "Creating updated pipeline definition"
