@@ -1,0 +1,80 @@
+{
+    "pipeline": {
+        "name": "trigger-github-actions",
+        "roleArn": "arn:aws:iam::676281737186:role/service-role/AWSCodePipelineServiceRole-ap-northeast-1-trigger-github-action",
+        "artifactStore": {
+            "type": "S3",
+            "location": "codepipeline-ap-northeast-1-935538111725"
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name": "Source",
+                        "actionTypeId": {
+                            "category": "Source",
+                            "owner": "AWS",
+                            "provider": "CodeStarSourceConnection",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "BranchName": "epic/deploy-test",
+                            "ConnectionArn": "arn:aws:codeconnections:ap-northeast-1:676281737186:connection/dfffeea0-a57f-4c76-87d0-71b2febe34f9",
+                            "DetectChanges": "false",
+                            "FullRepositoryId": "ToruShimizu/amplify-next-ssg",
+                            "OutputArtifactFormat": "CODE_ZIP"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "inputArtifacts": [],
+                        "region": "ap-northeast-1",
+                        "namespace": "SourceVariables"
+                    }
+                ]
+            },
+            {
+                "name": "Build",
+                "actions": [
+                    {
+                        "name": "Build",
+                        "actionTypeId": {
+                            "category": "Build",
+                            "owner": "AWS",
+                            "provider": "CodeBuild",
+                            "version": "1"
+                        },
+                        "runOrder": 1,
+                        "configuration": {
+                            "ProjectName": "trigger-github-actions"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "BuildArtifact"
+                            }
+                        ],
+                        "inputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "region": "ap-northeast-1",
+                        "namespace": "BuildVariables"
+                    }
+                ]
+            }
+        ],
+        "version": 2,
+        "executionMode": "QUEUED",
+        "pipelineType": "V2"
+    },
+    "metadata": {
+        "pipelineArn": "arn:aws:codepipeline:ap-northeast-1:676281737186:trigger-github-actions",
+        "created": "2024-07-26T11:20:37.803000+09:00",
+        "updated": "2024-07-26T16:37:24.784000+09:00"
+    }
+}
