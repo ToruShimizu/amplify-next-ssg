@@ -23,3 +23,6 @@ jobs:
 
       - name: Verify AWS authe  ntication
         run: aws sts get-caller-identity
+
+      - name: Trigger CodePipeline
+        run: aws codepipeline start-pipeline-execution --name trigger-github-actions
