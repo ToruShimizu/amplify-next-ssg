@@ -24,5 +24,8 @@ jobs:
       - name: Verify AWS authe  ntication
         run: aws sts get-caller-identity
 
+      - name: Set branch environment variable
+        run: echo "BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+
       - name: Trigger CodePipeline
         run: aws codepipeline start-pipeline-execution --name trigger-github-actions
