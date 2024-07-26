@@ -21,5 +21,5 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Trigger CodePipeline
-        run: aws codepipeline start-pipeline-execution --name trigger-github-actions
+      - name: Verify AWS authe  ntication
+        run: aws sts get-caller-identity
