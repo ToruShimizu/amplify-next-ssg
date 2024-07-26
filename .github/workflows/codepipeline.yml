@@ -32,9 +32,16 @@ jobs:
       - name: Modify CodePipeline Source Stage
         run: |
           echo "Creating updated pipeline definition"
-          jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch' pipeline-definition.json > updated-pipeline-definition.json
-          cat updated-pipeline-definition.json | jq '{pipeline: .}' > final-pipeline-definition.json
-          aws codepipeline update-pipeline --cli-input-json file://final-pipeline-definition.json --query 'pipeline.version'
+
+          # Use jq to update the BranchName and nest the JSON structure
+          jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch | {pipeline: .}' pipeline-definition.json > updated-pipeline-definition.json
+
+          # Display the updated definition for debugging
+          echo "Updated pipeline definition:"
+          cat updated-pipeline-definition.json
+
+          # Use the correct AWS CLI command to update the pipeline with the new definition
+          aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.version'
 
       - name: Trigger CodePipeline
         run: aws codepipeline start-pipeline-execution --name trigger-github-actions
