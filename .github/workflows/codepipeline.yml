@@ -27,8 +27,8 @@ jobs:
 
       - name: Fetch and update CodePipeline definition
         run: |
-          aws codepipeline get-pipeline --name trigger-github-actions --query 'pipeline' > pipeline-definition.json
-          jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch' pipeline-definition.json > updated-pipeline-definition.json
+          aws codepipeline get-pipeline --name trigger-github-actions > pipeline-definition.json
+          jq --arg branch "${{ github.ref_name }}" 'pipeline.stages[0].actions[0].configuration.BranchName=$branch' pipeline-definition.json > updated-pipeline-definition.json
 
           cat updated-pipeline-definition.json
 
