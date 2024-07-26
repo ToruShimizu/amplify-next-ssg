@@ -1,4 +1,5 @@
 name: Trigger AWS CodePipeline
+run-name: ${{ github.ref_name }}をdev環境へデプロイ🚀
 
 on:
   workflow_dispatch:
