@@ -8,17 +8,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: Fetch all branches
-      run: git fetch --all
+      - name: Fetch all branches
+        run: git fetch --all
 
-    - name: Check for differences with main branch
-      run: |
-        if ! git diff --quiet origin/main; then
-          echo "baseブランチとの差分があります。最新のmainブランチをマージしてください"
-          exit 1
-        else
-          echo "baseブランチとの差分はありません"
-        fi
+      - name: Check if base branch is merged into development branch
+        run: |
+          git merge-base --is-ancestor origin/<base-branch> HEAD
+          if [ $? -ne 0 ]; then
+            echo "baseブランチとの差分があります。最新のmainブランチをマージしてください"
+            exit 1
+          else
+            echo "baseブランチとの差分はありません"
+          fi
