@@ -14,13 +14,13 @@ jobs:
           fetch-depth: 0
 
       - name: Fetch all branches
-        run: git fetch --all
+        run: git fetch origin
 
       - name: Check if base branch is merged into development branch
         run: |
           git merge-base --is-ancestor origin/main HEAD
           if ! git merge-base --is-ancestor origin/HEAD HEAD; then
-            echo "ERROR: HEAD is not based on upstream HEAD"
+            echo "最新のmainブランチをマージしてください"
             exit 1
           fi
 
