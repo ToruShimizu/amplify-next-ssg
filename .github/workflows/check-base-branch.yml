@@ -18,7 +18,7 @@ jobs:
 
       - name: Check if base branch is merged into development branch
         run: |
-          if ! git merge-base --is-ancestor origin/HEAD HEAD; then
+          if ! git merge-base --is-ancestor origin/main HEAD; then
             echo "ERROR: HEAD is not based on upstream HEAD"
             exit 1
           fi
