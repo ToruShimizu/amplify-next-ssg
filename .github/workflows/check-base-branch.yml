@@ -18,9 +18,8 @@ jobs:
 
       - name: Check if base branch is merged into development branch
         run: |
-          git merge-base --is-ancestor origin/main HEAD
           if ! git merge-base --is-ancestor origin/HEAD HEAD; then
-            echo "最新のmainブランチをマージしてください"
+            echo "ERROR: HEAD is not based on upstream HEAD"
             exit 1
           fi
 
