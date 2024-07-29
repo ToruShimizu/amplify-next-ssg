@@ -33,14 +33,14 @@ jobs:
         run: |
           echo "Creating updated pipeline definition"
 
-          # Use jq to update the BranchName and nest the JSON structure
+          # ブランチ名を変更
           jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch | {pipeline: .}' pipeline-definition.json > updated-pipeline-definition.json
 
-          # Display the updated definition for debugging
+          # 確認ログ
           echo "Updated pipeline definition:"
           cat updated-pipeline-definition.json
 
-          # Use the correct AWS CLI command to update the pipeline with the new definition
+          # 更新反映
           aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.name'
 
       - name: Trigger CodePipeline
