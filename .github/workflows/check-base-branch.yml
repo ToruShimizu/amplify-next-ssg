@@ -18,7 +18,7 @@ jobs:
 
       - name: Check if base branch is merged into development branch
         run: |
-          git merge-base --is-ancestor origin/<base-branch> HEAD
+          git merge-base --is-ancestor origin/main HEAD
           if [ $? -ne 0 ]; then
             echo "baseブランチとの差分があります。最新のmainブランチをマージしてください"
             exit 1
