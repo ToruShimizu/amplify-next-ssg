@@ -25,3 +25,8 @@ jobs:
           else
             echo "baseブランチとの差分はありません"
           fi
+
+      - name: Send Slack notification
+        if: failure()
+        run: |
+          echo "baseブランチとの差分があります。最新のmainブランチをマージしてください"
