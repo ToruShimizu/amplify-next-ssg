@@ -41,7 +41,7 @@ jobs:
           cat updated-pipeline-definition.json
 
           # Use the correct AWS CLI command to update the pipeline with the new definition
-          aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.version'
+          aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.name'
 
       - name: Trigger CodePipeline
         run: aws codepipeline start-pipeline-execution --name trigger-github-actions
