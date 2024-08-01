@@ -25,23 +25,42 @@ jobs:
       - name: Verify AWS authe  ntication
         run: aws sts get-caller-identity
 
-      - name: Fetch current CodePipeline definition
+      # - name: Fetch current CodePipeline definition
+      #   run: |
+      #     aws codepipeline get-pipeline --name trigger-github-actions --query 'pipeline' > pipeline-definition.json
+
+      # - name: Modify CodePipeline Source Stage
+      #   run: |
+      #     echo "Creating updated pipeline definition"
+
+      #     # ブランチ名を変更
+      #     jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch | {pipeline: .}' pipeline-definition.json > updated-pipeline-definition.json
+
+      #     # 確認ログ
+      #     echo "Updated pipeline definition:"
+      #     cat updated-pipeline-definition.json
+
+      #     # 更新反映
+      #     aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.name'
+
+      - name: Trigger CodeBuild
+        id: codebuild
         run: |
-          aws codepipeline get-pipeline --name trigger-github-actions --query 'pipeline' > pipeline-definition.json
+          build_id=$(aws codebuild start-build \
+            --project-name trigger-github-actions \
+            --source-version ${{ github.ref_name }} \
+            --query 'build.id' --output text)
+          echo "::set-output name=build_id::$build_id"
 
-      - name: Modify CodePipeline Source Stage
+      - name: Wait for CodeBuild to complete
+        id: wait_for_codebuild
         run: |
-          echo "Creating updated pipeline definition"
-
-          # ブランチ名を変更
-          jq --arg branch "${{ github.ref_name }}" '.stages[0].actions[0].configuration.BranchName=$branch | {pipeline: .}' pipeline-definition.json > updated-pipeline-definition.json
-
-          # 確認ログ
-          echo "Updated pipeline definition:"
-          cat updated-pipeline-definition.json
-
-          # 更新反映
-          aws codepipeline update-pipeline --cli-input-json file://updated-pipeline-definition.json --query 'pipeline.name'
+          build_status=$(aws codebuild batch-get-builds --ids ${{ steps.codebuild.outputs.build_id }} --query 'builds[0].buildStatus' --output text)
+          while [ "$build_status" == "IN_PROGRESS" ]; do
+            sleep 10
+            build_status=$(aws codebuild batch-get-builds --ids ${{ steps.codebuild.outputs.build_id }} --query 'builds[0].buildStatus' --output text)
+          done
+          echo "::set-output name=build_status::$build_status"
 
       - name: Trigger CodePipeline
         run: aws codepipeline start-pipeline-execution --name trigger-github-actions
